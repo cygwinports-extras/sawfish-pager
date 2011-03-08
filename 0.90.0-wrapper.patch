@@ -1,0 +1,41 @@
+--- origsrc/sawfish-pager-0.90.0/Makefile.in	2010-10-24 14:45:49.000000000 -0500
++++ src/sawfish-pager-0.90.0/Makefile.in	2011-03-07 23:56:57.060790600 -0600
+@@ -42,6 +42,7 @@
+ 	mkdir -p $(DESTDIR)@PAGER_JL_DIR@
+ 	install -m644 $(srcdir)/pager.jl $(DESTDIR)@PAGER_JL_DIR@
+ 	install -m644 $(srcdir)/pager.jlc $(DESTDIR)@PAGER_JL_DIR@
++	install -m755 sawfishpager.sh $(DESTDIR)@PAGER_C_DIR@
+ 	install -m755 sawfishpager $(DESTDIR)@PAGER_C_DIR@
+ 
+ uninstall:
+--- origsrc/sawfish-pager-0.90.0/configure.in	2010-10-24 14:45:49.000000000 -0500
++++ src/sawfish-pager-0.90.0/configure.in	2011-03-07 23:56:36.843155300 -0600
+@@ -93,6 +93,7 @@ AC_SUBST(gitdate)
+ 
+ AC_CONFIG_FILES([
+ Makefile
++sawfishpager.sh
+ sawfish-pager.pc
+ debian/control
+ debian/changelog
+--- origsrc/sawfish-pager-0.90.0/pager.jl	2010-10-24 14:45:49.000000000 -0500
++++ src/sawfish-pager-0.90.0/pager.jl	2011-03-07 23:49:55.423255400 -0600
+@@ -208,8 +208,8 @@ workspace, viewport or none."
+ 
+   (defvar pager-executable
+     (if (file-exists-p "~/.sawfish/sawfishpager")
+-	(concat (user-home-directory) "/.sawfish/sawfishpager")
+-      (concat sawfish-exec-directory "/sawfishpager")))
++	(concat (user-home-directory) "/.sawfish/sawfishpager.sh")
++      (concat sawfish-exec-directory "/sawfishpager.sh")))
+ 
+   (defvar pager-output-stream nil
+     "Pager's output stream.")
+--- origsrc/sawfish-pager-0.90.0/sawfishpager.sh.in	1969-12-31 18:00:00.000000000 -0600
++++ src/sawfish-pager-0.90.0/sawfishpager.sh.in	2011-03-08 00:05:20.183267000 -0600
+@@ -0,0 +1,5 @@
++#!/bin/sh
++export LD_LIBRARY_PATH="@REP_COMMON_EXEC_DIR@/sawfish:$LD_LIBRARY_PATH"
++export PATH="@REP_COMMON_EXEC_DIR@/sawfish:$PATH"
++
++exec $(dirname $0)/sawfishpager "$@"

@@ -1,0 +1,16 @@
+--- origsrc/sawfish-pager-0.90.0/Makefile.in	2010-10-24 14:45:49.000000000 -0500
++++ src/sawfish-pager-0.90.0/Makefile.in	2011-03-07 23:56:57.060790600 -0600
+@@ -28,9 +28,12 @@
+ 
+ CFLAGS = @GTK_CFLAGS@ @IMAGE_LOADER_CFLAGS@ #-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED
+-LDFLAGS = -Wl,-rpath @SAWFISH_CLIENT_LIB_DIR@ @SAWFISH_CLIENT_LIB_DIR@/client.so @GTK_LIBS@ @SAWFISH_LIBS@ @IMAGE_LOADER_LIBS@
++LDFLAGS = @SAWFISH_CLIENT_LIB_DIR@/client.dll @GTK_LIBS@ @SAWFISH_LIBS@ @IMAGE_LOADER_LIBS@
+ 
+ all: sawfishpager pager.jlc
+ 
++sawfishpager: sawfishpager.o
++	$(CC) -o $@ $< $(LDFLAGS)
++
+ %.jlc: %.jl
+ 	sawfish --batch --no-rc compiler -f compile-batch $^
+ 

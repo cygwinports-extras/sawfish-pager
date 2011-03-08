@@ -1,0 +1,7 @@
+category: X11
+requires: libglib2.0_0 libgtk2.0_0 libX11_6 sawfish
+sdesc: "Sawfish window pager"
+ldesc: "Sawfish-pager gives the thumbnail view of your entire desktop, 
+including currently off workspaces. By a single click, you can go to 
+another (distant) workspace, or to a window there. You can also move or 
+raise / lower a window."

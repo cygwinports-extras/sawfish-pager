@@ -1,0 +1,12 @@
+DESCRIPTION="Extensible window manager based on Lisp-like scripting language"
+HOMEPAGE="http://sawfish.wikia.com/"
+SRC_URI="http://download.tuxfamily.org/sawfishpager/${P}.tar.xz"
+
+PATCH_URI="
+	0.90.0-vpath.patch
+	0.90.0-no-undefined.patch
+	0.90.0-wrapper.patch
+"
+
+DISTCLEANFILES="sawfishpager.sh.in"
+DEPS_PATH="$(pkg-config --variable=repcommonexecdir librep)/sawfish"
